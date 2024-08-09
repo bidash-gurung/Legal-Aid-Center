@@ -1,74 +1,71 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from "react-toastify";
-import { Puff } from 'react-loader-spinner';
-import "react-toastify/dist/ReactToastify.css";
-import axios from 'axios';
+import React from "react";
+import loginbg from "../images/loginbg.png";
+import { Link } from "react-router-dom";
 
-function Login() {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+// import cornerImg from "../img/corner.png"; // Assuming you have an image for the corners
+import "../css/signin.css";
+import b1 from "../images/border1.png";
+import b2 from "../images/border2.png";
+import b3 from "../images/border3.png";
+import b4 from "../images/border4.png";
+import Navbar from "../components/Navbar";
+const Login = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevents the default form submit behavior
 
-    async function handleClick(e) {
-        e.preventDefault();
-        if (!email || !password) {
-            return toast.error('Please fill in all fields');
-        }
-        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!regex.test(email)) {
-            return toast.error(`Invalid email: ${email}`);
-        }
+    // Get the input values
+    const email = event.target.email.value;
+    const password = event.target.password.value;
 
-        setLoading(true);
-        try {
-            const res = await axios({
-                method: "POST",
-                url: "http://localhost:3001/api/v1/users/login",
-                headers: { "Access-Control-Allow-Origin": "*" },
-                data: {
-                    email,
-                    password
-                }
-            })
-            if (res.data.status === "success") {
-                toast.success("Login successful!")
-                console.log(res.data)
-                // setTimeout(() => { navigate('/login'); }, 1500);
-            } else {
-                toast.error("An unexpected error occurred. Check console for more details" + res.data.error)
-                console.error(res.data);
-            }
-        } catch (error) {
-            toast.error("Error occurred while logging in. Check console for more details")
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }
-    return (
-        <>
-            {loading && <div style={{ background: "white", display: 'flex', justifyContent: 'center', alignItems: 'center', width: "100%", height: "100%", position: "absolute", zIndex: "99999" }}>
-                <Puff color="#00BFFF" height={550} width={80} />
-            </div>}
-            <div className='loginContainer'>
-                <ToastContainer />
-                <form>
-                    <div className="field">
-                        <label>Email:</label>
-                        <input type='text' onChange={(e) => setEmail(e.target.value)} value={email} />
-                    </div>
-                    <div className="field">
-                        <label>Password:</label>
-                        <input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
-                    </div>
-                    <button onClick={handleClick}>Login</button>
-                    <p>Don't have an account? <Link to='/signup'>Signup</Link></p>
-                </form>
+    // Handle form submission logic here (e.g., send data to API)
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    // Example of redirecting or updating state can be added here
+    // e.g., redirect to another page or update the app state
+  };
+  return (
+    <div className="loginpage">
+      <Navbar navItems={[["Home", "/"]]} isLoggedIn={false} />
+
+      <div className="signin">
+        <div className="form">
+          <img src={b1} alt="corner" className="corner top-left" />
+          <img src={b2} alt="corner" className="corner top-right" />
+
+          <h2>Sign In to Legal Aid Center</h2>
+          <br></br>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <label>Email</label>
+              <input type="text" id="email" name="email" required />
             </div>
-        </>
-    )
-}
+            <div className="input-group">
+              <label>Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
 
-export default Login
+          <div className="form-footer">
+            <a href="/forgot-password" className="forgot-password-link">
+              Forgot password?
+            </a>
+            <div className="signup-link">
+              <p>Not a member? </p>
+              <Link to="/signup">
+                <button className="signup-btn">Sign up</button>
+              </Link>
+            </div>
+          </div>
+          <img src={b4} alt="corner" className="corner bottom-left" />
+          <img src={b3} alt="corner" className="corner bottom-right" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

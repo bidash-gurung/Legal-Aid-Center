@@ -1,44 +1,76 @@
+/* navbar.css */
 nav {
-  display: flex;
-  padding: 1rem 2rem;
-  justify-content: space-between;
+  /* background-color: #333; */
+  background-color: transparent;
+  padding: 0.5rem 1rem;
 }
 
-nav > ul {
+.navigation {
   display: flex;
-  list-style-type: none;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  position: relative;
+  left: 10%;
+    /* or fixed, depending on your design */
+    z-index: 2;
+    /* Make sure this is higher than the form container */
+    width: 80%;
+    /* Ensures it stretches across the entire width */
+    background-color: transparent;
+    /* Optional: Adds a semi-transparent background */
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+
+.navigation .logo {
+ 
+  height: 50px;
 }
 
-nav > div {
+.navigation ul {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 20px;
 }
 
-a {
-  text-decoration: none;
+.navigation ul li {
+  margin-left: 20px;
 }
 
-nav a {
-  color: black;
-}
-
-nav > div a:hover {
-  color: #414141;
-}
-
-nav > div button {
-  background-color: #4caf50;
+.navigation ul li a {
   color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-nav > div button:hover {
-  background-color: #45a049;
+.navigation ul li a:hover {
+  color: #ddd;
+}
+
+.navigation div {
+  display: flex;
+  align-items: center;
+}
+
+.navigation div button {
+  background-color: #F49200;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-left: 20px;
+  cursor: pointer;
+   transition: background-color 0.3s;
+}
+
+.navigation div button:hover {
+  background-color: #ffffff;
+  color: #F49200;
 }
